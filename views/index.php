@@ -9,5 +9,10 @@
     </head>
     <body>
         Home Page
+        <hr>
+        <form action="/" enctype="multipart/form-data" method="post">
+            <input type="file" name="transaction_file">
+            <input type="submit">
+        </form>
     </body>
 </html>
