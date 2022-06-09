@@ -14,7 +14,7 @@ class HomeController
         return View::make('index');
     }
     public function transactionFileUpload() {
-        new transactionsFile($_FILES['transaction_file']['tmp_name']);
+        (new transactionsFile($_FILES['transaction_file']['tmp_name']))->saveTransacionsInDB();
         die(header('Location: /transaction'));
     }
 }

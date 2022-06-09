@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace App\Models;
 
 use App\Model;
@@ -62,33 +64,38 @@ class transactionsFile extends Model {
             [
                     $Transactions[$rowKey]['date'],
                     $Transactions[$rowKey]['checkNumber'],
-                    $Transactions[$rowKey]['descrition'],
+                    $Transactions[$rowKey]['description'],
                     $Transactions[$rowKey]['amount'],
                     ] = $row;
             $Transactions[$rowKey]['date']   = (
-                    \DateTime::createFromFormat('m/d/Y', $Transactions[$rowKey])
+                    \DateTime::createFromFormat('m/d/Y', $Transactions[$rowKey]['date'])
                     )->format('Y-m-d');
             $Transactions[$rowKey]['amount'] = (float) str_replace(
-                            ['$', ','], '', $Transactions[$rowKey]
+                            ['$', ','], '', $Transactions[$rowKey]['amount']
             );
         }
+        return $Transactions;
     }
 
-    public function saveTransacionsInDB() {
+    public function saveTransacionsInDB(): void {
         $Transactions = $this->extractTransactions();
         try {
+            
             $this->db->beginTransaction();
-            $this->db > query('TRUNCATE transactions');
+            $this->db->query('DELETE FROM transactions');
             $stmt        = $this->db->prepare(
                     'INSERT INTO transactions (date, check_number, description, amount) '
                     . 'VALUES (:date, :check_number, :description, :amount)'
             );
-            $transaction = [];
-            $stmt->bindParam('date', $transaction['date']);
-            $stmt->bindParam('check_number', $transaction['checkNum'], \PDO::PARAM_INT);
-            $stmt->bindParam('description', $transaction['description']);
-            $stmt->bindParam('amount', $transaction['amount']);
+            $stmt->bindParam('date', $date);
+            $stmt->bindParam('check_number', $checkNumber, \PDO::PARAM_INT);
+            $stmt->bindParam('description', $description);
+            $stmt->bindParam('amount', $amount);
             foreach ($Transactions as $transaction) {
+                $date = $transaction['date'];
+                $checkNumber = $transaction['checkNumber'];
+                $description = $transaction['description'];
+                $amount = $transaction['amount'];
                 $stmt->execute();
             }
             $this->db->commit();
