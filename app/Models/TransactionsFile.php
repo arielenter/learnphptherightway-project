@@ -9,7 +9,7 @@ use App\Exceptions\FileNotFoundException;
 use App\Exceptions\FileOpenFailException;
 use App\Enums\Format;
 
-class transactionsFile extends Model {
+class TransactionsFile extends Model {
 
     public function __construct(
             private string $filePath,
@@ -58,23 +58,23 @@ class transactionsFile extends Model {
          * amount of columns, first row are column headers, date and number columns 
          * are formatted correctly and are valid, and the file has at least two rows.
          */
-        $Transactions = [];
+        $transactions = [];
         array_shift($rawRows);
         foreach ($rawRows as $rowKey => $row) {
             [
-                    $Transactions[$rowKey]['date'],
-                    $Transactions[$rowKey]['checkNumber'],
-                    $Transactions[$rowKey]['description'],
-                    $Transactions[$rowKey]['amount'],
+                    $transactions[$rowKey]['date'],
+                    $transactions[$rowKey]['checkNumber'],
+                    $transactions[$rowKey]['description'],
+                    $transactions[$rowKey]['amount'],
                     ] = $row;
-            $Transactions[$rowKey]['date']   = (
-                    \DateTime::createFromFormat('m/d/Y', $Transactions[$rowKey]['date'])
+            $transactions[$rowKey]['date']   = (
+                    \DateTime::createFromFormat('m/d/Y', $transactions[$rowKey]['date'])
                     )->format('Y-m-d');
-            $Transactions[$rowKey]['amount'] = (float) str_replace(
-                            ['$', ','], '', $Transactions[$rowKey]['amount']
+            $transactions[$rowKey]['amount'] = (float) str_replace(
+                            ['$', ','], '', $transactions[$rowKey]['amount']
             );
         }
-        return $Transactions;
+        return $transactions;
     }
 
     public function saveTransacionsInDB(): void {

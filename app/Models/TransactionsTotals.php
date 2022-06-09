@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace App\Models;
 
-class transactionsTotals {
+class TransactionsTotals {
 
     private float $netTotal     = 0;
     private float $totalIncome  = 0;

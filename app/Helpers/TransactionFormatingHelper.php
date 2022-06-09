@@ -2,7 +2,7 @@
 
 namespace App\Helpers;
 
-class transactionFormatingHelper {
+class TransactionFormatingHelper {
 
     public function formatDollarAmount(float $amount) {
         $isNegative = $amount < 0;

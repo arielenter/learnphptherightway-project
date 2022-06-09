@@ -6,8 +6,8 @@ namespace App\Controllers;
 
 use App\View;
 use App\Models\retriveTransactionsFromDB;
-use App\Helpers\transactionFormatingHelper;
-use App\Models\transactionsTotals;
+use App\Helpers\TransactionFormatingHelper;
+use App\Models\TransactionsTotals;
 
 class TransactionController
 {
@@ -18,8 +18,8 @@ class TransactionController
             'transactions', 
             [
                 'transactions' => $transactions,
-                'transactionFormatingHelper' => new transactionFormatingHelper(),
-                'transactionsTotals' => new transactionsTotals($transactions)
+                'transactionFormatingHelper' => new TransactionFormatingHelper(),
+                'transactionsTotals' => new TransactionsTotals($transactions)
             ]
         );
     }
