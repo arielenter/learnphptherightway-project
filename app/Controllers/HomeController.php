@@ -6,6 +6,7 @@ namespace App\Controllers;
 
 use App\View;
 use App\Models\TransactionsFile;
+use App\Models\TransactionsExtractors;
 
 class HomeController
 {
@@ -14,7 +15,9 @@ class HomeController
         return View::make('index');
     }
     public function transactionFileUpload() {
-        (new TransactionsFile($_FILES['transaction_file']['tmp_name']))->saveTransacionsInDB();
+        (new TransactionsFile(
+                $_FILES['transaction_file']['tmp_name']
+        ))->saveTransacionsInDB();
         die(header('Location: /transaction'));
     }
 }

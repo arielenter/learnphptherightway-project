@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace App\Helpers;
 
 class TransactionFormatingHelper {
@@ -16,7 +18,7 @@ class TransactionFormatingHelper {
     
     public function formatCheckNumber(int $checkNumber) {
         if($checkNumber !== 0){
-            return str_pad($checkNumber, 4, "0", STR_PAD_LEFT);
+            return str_pad(strval($checkNumber), 4, "0", STR_PAD_LEFT);
         }
         return '';
     }
