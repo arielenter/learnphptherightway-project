@@ -12,7 +12,7 @@ class retriveTransactionsFromDB extends Model {
         parent::__construct();
     }
 
-    public function run() {
+    public function run(): array {
         return $this->db->query('SELECT date, check_number AS checkNumber, description, amount '
                         . 'FROM transactions'
                 )->fetchAll();

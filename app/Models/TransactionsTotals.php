@@ -22,15 +22,15 @@ class TransactionsTotals {
         }
     }
 
-    public function getNetTotal() {
+    public function getNetTotal(): float {
         return $this->netTotal;
     }
 
-    public function getTotalIncome() {
+    public function getTotalIncome(): float {
         return $this->totalIncome;
     }
 
-    public function getTotalExpense() {
+    public function getTotalExpense(): float {
         return $this->totalExpense;
     }
 

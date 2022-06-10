@@ -30,7 +30,7 @@ class TransactionsFile extends Model {
         throw new FileOpenFailException();
     }
 
-    public function getRawRows() {
+    public function getRawRows(): array {
         $fileContent = $this->getFileContent();
         $rawRows     = [];
         while (($row         = fgetcsv($fileContent)) !== false) {
@@ -39,7 +39,7 @@ class TransactionsFile extends Model {
         return $rawRows;
     }
 
-    public function extractTransactions() {
+    public function extractTransactions(): array {
         $rawRows = $this->getRawRows();
         return $this->transactionExtractor->extract($rawRows);
     }
